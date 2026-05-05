@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog-create-brands-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: db.changelog-create-amenities-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: db.changelog-create-hotels-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: db.changelog-create-hotels-amenities-table.yaml
+      relativeToChangelogFile: true

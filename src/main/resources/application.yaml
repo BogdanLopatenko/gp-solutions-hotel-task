@@ -1,3 +1,6 @@
 spring:
   application:
     name: GP_solutions_task
+
+server:
+  port: 8092

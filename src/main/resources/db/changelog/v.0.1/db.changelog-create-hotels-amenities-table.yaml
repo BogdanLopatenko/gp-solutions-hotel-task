@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05052026-create-hotels-amenities-table
+      author: bogdan_lopatenko
+      changes:
+        - createTable:
+            tableName: hotels_amenities
+            columns:
+              - column:
+                  name: hotel_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: amenity_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: hotel_id
+            baseTableName: hotels_amenities
+            referencedColumnNames: id
+            referencedTableName: hotels
+            constraintName: fk_hotels_amenities_hotels
+
+        - addForeignKeyConstraint:
+            baseColumnNames: amenity_id
+            baseTableName: hotels_amenities
+            referencedColumnNames: id
+            referencedTableName: amenities
+            constraintName: fk_hotels_amenities_amenity
+
+        - createIndex:
+            tableName: hotel_amenities
+            columns:
+              - column:
+                  name: hotel_id
+
+        - createIndex:
+            tableName: hotel_amenities
+            columns:
+              - column:
+                  name: amenity_id
