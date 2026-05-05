@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: GP_solutions_task
