@@ -42,13 +42,13 @@ databaseChangeLog:
             constraintName: uk_hotel_amenity
 
         - createIndex:
-            tableName: hotel_amenities
+            tableName: hotels_amenities
             columns:
               - column:
                   name: hotel_id
 
         - createIndex:
-            tableName: hotel_amenities
+            tableName: hotels_amenities
             columns:
               - column:
                   name: amenity_id

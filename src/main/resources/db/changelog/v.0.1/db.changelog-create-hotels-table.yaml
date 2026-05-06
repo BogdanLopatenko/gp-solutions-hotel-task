@@ -8,8 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
-                  autoIncrement: true
+                  type: bigserial
                   constraints:
                     primaryKey: true
               - column:
@@ -96,4 +95,4 @@ databaseChangeLog:
             tableName: hotels
             columns:
               - column:
-                  name: brand
+                  name: brand_id
