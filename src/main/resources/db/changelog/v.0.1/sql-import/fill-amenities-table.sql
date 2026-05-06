@@ -1,0 +1,10 @@
+insert into amenities (name) values ('Free parking');
+insert into amenities (name) values ('Free WiFi');
+insert into amenities (name) values ('Non-smoking rooms');
+insert into amenities (name) values ('Concierge');
+insert into amenities (name) values ('On-site restaurant');
+insert into amenities (name) values ('Fitness center');
+insert into amenities (name) values ('Pet-friendly rooms');
+insert into amenities (name) values ('Room service');
+insert into amenities (name) values ('Business center');
+insert into amenities (name) values ('Meeting rooms');
