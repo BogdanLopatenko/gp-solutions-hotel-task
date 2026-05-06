@@ -2,5 +2,15 @@ spring:
   application:
     name: GP_solutions_task
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gpsolutionsdb
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
 server:
   port: 8092
