@@ -1,4 +1,4 @@
-package com.bogdanlopatenko.dto.hotels_amenities;
+package com.bogdanlopatenko.dto.hotel_amenity;
 
 import com.bogdanlopatenko.dto.amenity.AmenityResponseDto;
 import com.bogdanlopatenko.dto.hotel.HotelResponseDto;
