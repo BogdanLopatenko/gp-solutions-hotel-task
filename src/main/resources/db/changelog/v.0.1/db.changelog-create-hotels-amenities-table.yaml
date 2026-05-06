@@ -7,16 +7,19 @@ databaseChangeLog:
             tableName: hotels_amenities
             columns:
               - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    nullable: false
+              - column:
                   name: hotel_id
                   type: bigint
                   constraints:
-                    primaryKey: true
                     nullable: false
               - column:
                   name: amenity_id
                   type: bigint
                   constraints:
-                    primaryKey: true
                     nullable: false
 
         - addForeignKeyConstraint:
@@ -32,6 +35,11 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: amenities
             constraintName: fk_hotels_amenities_amenity
+
+        - addUniqueConstraint:
+            tableName: hotels_amenities
+            columnNames: hotel_id, amenity_id
+            constraintName: uk_hotel_amenity
 
         - createIndex:
             tableName: hotel_amenities
