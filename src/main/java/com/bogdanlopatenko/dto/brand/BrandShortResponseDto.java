@@ -1,0 +1,13 @@
+package com.bogdanlopatenko.dto.brand;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class BrandShortResponseDto {
+
+    private String name;
+}
