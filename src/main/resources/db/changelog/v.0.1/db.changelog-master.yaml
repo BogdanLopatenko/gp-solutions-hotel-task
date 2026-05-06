@@ -11,3 +11,6 @@ databaseChangeLog:
   - include:
       file: db.changelog-create-hotels-amenities-table.yaml
       relativeToChangelogFile: true
+  - include:
+      file: sql-import/fill-amenities-table.sql
+      relativeToChangelogFile: true
