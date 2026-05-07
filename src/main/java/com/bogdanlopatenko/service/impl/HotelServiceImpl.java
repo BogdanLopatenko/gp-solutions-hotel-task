@@ -12,6 +12,7 @@ import com.bogdanlopatenko.entity.Brand;
 import com.bogdanlopatenko.entity.Hotel;
 import com.bogdanlopatenko.entity.HotelAmenity;
 import com.bogdanlopatenko.enums.ResponseStatus;
+import com.bogdanlopatenko.exception.AmenityNotFoundException;
 import com.bogdanlopatenko.exception.BrandNotFoundException;
 import com.bogdanlopatenko.exception.HotelNotFoundException;
 import com.bogdanlopatenko.mapper.HotelMapper;
@@ -89,6 +90,11 @@ public class HotelServiceImpl implements HotelService {
                 .collect(Collectors.toSet());
 
         List<Amenity> allAmenitiesByNames = amenityRepository.findAllByNameIn(amenitiesNames);
+
+        if (allAmenitiesByNames.isEmpty()){
+
+            throw new AmenityNotFoundException(ExceptionConstant.EMPTY_AMENITY_LIST, ResponseStatus.NOT_FOUND.name());
+        }
 
         allAmenitiesByNames
                 .forEach(amenity -> {

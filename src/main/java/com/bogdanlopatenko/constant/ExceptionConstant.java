@@ -7,6 +7,8 @@ public final class ExceptionConstant {
 
     public static final String HOTEL_NOT_FOUND_BY_ID = "Hotel not found by id: ";
 
+    public static final String EMPTY_AMENITY_LIST = "Amenity list is empty";
+
     private ExceptionConstant() {
     }
 }
