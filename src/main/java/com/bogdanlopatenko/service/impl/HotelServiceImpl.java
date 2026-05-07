@@ -3,13 +3,19 @@ package com.bogdanlopatenko.service.impl;
 import com.bogdanlopatenko.constant.ExceptionConstant;
 import com.bogdanlopatenko.dto.HotelFilterDto;
 import com.bogdanlopatenko.dto.HotelSpecification;
+import com.bogdanlopatenko.dto.amenity.AmenityRequestDto;
+import com.bogdanlopatenko.dto.hotel.HotelFullResponseDto;
 import com.bogdanlopatenko.dto.hotel.HotelRequestDto;
-import com.bogdanlopatenko.dto.hotel.HotelResponseDto;
 import com.bogdanlopatenko.dto.hotel.HotelShortResponseDto;
 import com.bogdanlopatenko.entity.Amenity;
+import com.bogdanlopatenko.entity.Brand;
 import com.bogdanlopatenko.entity.Hotel;
+import com.bogdanlopatenko.entity.HotelAmenity;
+import com.bogdanlopatenko.exception.BrandNotFoundException;
 import com.bogdanlopatenko.exception.HotelNotFoundException;
 import com.bogdanlopatenko.mapper.HotelMapper;
+import com.bogdanlopatenko.repository.AmenityRepository;
+import com.bogdanlopatenko.repository.BrandRepository;
 import com.bogdanlopatenko.repository.HotelRepository;
 import com.bogdanlopatenko.service.HotelService;
 import lombok.RequiredArgsConstructor;
@@ -17,29 +23,35 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class HotelServiceImpl implements HotelService {
 
-    private final HotelRepository repository;
+    private final AmenityRepository amenityRepository;
+
+    private final BrandRepository brandRepository;
+
+    private final HotelRepository hotelRepository;
 
     private final HotelMapper hotelMapper;
 
     @Override
     public List<HotelShortResponseDto> getAll() {
 
-        List<Hotel> allHotels = repository.findAll();
+        List<Hotel> allHotels = hotelRepository.findAll();
 
         return hotelMapper.toShortResponseList(allHotels);
     }
 
     @Override
-    public HotelResponseDto getById(Long id) {
+    public HotelFullResponseDto getById(Long id) {
 
         Hotel hotelById = getHotelById(id);
 
-        return hotelMapper.toResponseDto(hotelById);
+        return hotelMapper.toFullResponseDto(hotelById);
     }
 
     @Override
@@ -47,7 +59,7 @@ public class HotelServiceImpl implements HotelService {
 
         Specification<Hotel> hotelSpecification = HotelSpecification.withFilters(filterDto);
 
-        List<Hotel> hotelsWithSpecification = repository.findAll(hotelSpecification);
+        List<Hotel> hotelsWithSpecification = hotelRepository.findAll(hotelSpecification);
 
         return hotelMapper.toShortResponseList(hotelsWithSpecification);
     }
@@ -55,26 +67,50 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelShortResponseDto create(HotelRequestDto requestDto) {
 
+        Brand brandByName = getBrandByName(requestDto.getBrand().getName());
+
         Hotel hotel = hotelMapper.toHotel(requestDto);
 
-        Hotel savedHotel = repository.save(hotel);
+        hotel.setBrand(brandByName);
+
+        Hotel savedHotel = hotelRepository.save(hotel);
 
         return hotelMapper.toShortResponseDto(savedHotel);
     }
 
     @Override
-    public void addAmenities(Long hotelId, List<Amenity> amenities) {
+    public void addAmenities(Long hotelId, List<AmenityRequestDto> amenitiesDto) {
 
         Hotel hotelById = getHotelById(hotelId);
 
-        amenities.forEach(hotelById::addAmenity);
+        Set<String> amenitiesNames = amenitiesDto.stream()
+                .map(AmenityRequestDto::getName)
+                .collect(Collectors.toSet());
 
-        repository.save(hotelById);
+        List<Amenity> allAmenitiesByNames = amenityRepository.findAllByNameIn(amenitiesNames);
+
+        allAmenitiesByNames
+                .forEach(amenity -> {
+
+                    HotelAmenity hotelAmenity = new HotelAmenity();
+                    hotelAmenity.setHotel(hotelById);
+                    hotelAmenity.setAmenity(amenity);
+
+                    hotelById.getAmenities().add(hotelAmenity);
+                });
+
+        hotelRepository.save(hotelById);
     }
 
     private Hotel getHotelById(Long id) {
 
-        return repository.findById(id).orElseThrow(()
+        return hotelRepository.findById(id).orElseThrow(()
                 -> new HotelNotFoundException(ExceptionConstant.HOTEL_NOT_FOUND_BY_ID + id));
+    }
+
+    private Brand getBrandByName(String brandName){
+
+        return brandRepository.findByName(brandName).orElseThrow(()
+                -> new BrandNotFoundException(ExceptionConstant.BRAND_NOT_FOUND_BY_NAME + brandName));
     }
 }
