@@ -22,7 +22,7 @@ public class HistogramServiceImpl implements HistogramService {
     @Override
     public Map<String, Long> getHistogram(HistogramParam param) {
 
-        return switch (param){
+        return switch (param) {
             case CITY -> toMap(hotelRepository.groupByCity());
             case COUNTRY -> toMap(hotelRepository.groupByCountry());
             case BRAND -> toMap(hotelRepository.groupByBrand());

@@ -1,6 +1,5 @@
 package com.bogdanlopatenko.mapper;
 
-import com.bogdanlopatenko.dto.amenity.AmenityResponseDto;
 import com.bogdanlopatenko.dto.amenity.AmenityShortResponseDto;
 import com.bogdanlopatenko.dto.hotel.HotelFullResponseDto;
 import com.bogdanlopatenko.dto.hotel.HotelRequestDto;

@@ -19,16 +19,16 @@ import java.util.List;
         )
 public interface AmenityMapper {
 
-     AmenityShortResponseDto toShortResponseDto(Amenity amenity);
+    AmenityShortResponseDto toShortResponseDto(Amenity amenity);
 
-     AmenityResponseDto toResponseDto(Amenity amenity);
+    AmenityResponseDto toResponseDto(Amenity amenity);
 
-     List<AmenityResponseDto> toResponseDtoList(List<Amenity> amenities);
+    List<AmenityResponseDto> toResponseDtoList(List<Amenity> amenities);
 
-     @Mapping(target = "id", ignore = true)
-     @Mapping(target = "hotels", ignore = true)
-     Amenity toAmenity(AmenityRequestDto dto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "hotels", ignore = true)
+    Amenity toAmenity(AmenityRequestDto dto);
 
-     List<Amenity> toAmenityList(List<AmenityRequestDto> dtoList);
+    List<Amenity> toAmenityList(List<AmenityRequestDto> dtoList);
 
 }

@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GpSolutionsTaskApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GpSolutionsTaskApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GpSolutionsTaskApplication.class, args);
+    }
 
 }
