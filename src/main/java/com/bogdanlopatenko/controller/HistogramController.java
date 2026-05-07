@@ -1,5 +1,6 @@
 package com.bogdanlopatenko.controller;
 
+import com.bogdanlopatenko.api.HistogramApi;
 import com.bogdanlopatenko.enums.HistogramParam;
 import com.bogdanlopatenko.service.HistogramService;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +14,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/property-view/histogram")
 @RequiredArgsConstructor
-public class HistogramController {
+public class HistogramController implements HistogramApi {
 
     private final HistogramService histogramService;
 
     @GetMapping("/{param}")
-    public Map<String, Long> getHotelHistogram(@PathVariable HistogramParam param) {
+    public Map<String, Long> createHotelHistogram(@PathVariable HistogramParam param) {
 
-        return histogramService.getHistogram(param);
+        return histogramService.createHistogram(param);
     }
 }
