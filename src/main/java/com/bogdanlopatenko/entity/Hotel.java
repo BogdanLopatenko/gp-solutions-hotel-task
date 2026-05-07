@@ -91,13 +91,6 @@ public class Hotel {
     @Column(name = "check_out")
     private LocalTime checkOut;
 
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hotel", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private Set<HotelAmenity> amenities;
-
-    public void addAmenity(Amenity amenity) {
-        HotelAmenity hotelAmenity = new HotelAmenity();
-        hotelAmenity.setHotel(this);
-        hotelAmenity.setAmenity(amenity);
-        this.amenities.add(hotelAmenity);
-    }
 }
