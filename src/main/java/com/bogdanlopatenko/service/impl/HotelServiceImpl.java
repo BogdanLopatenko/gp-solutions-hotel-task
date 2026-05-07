@@ -11,6 +11,7 @@ import com.bogdanlopatenko.entity.Amenity;
 import com.bogdanlopatenko.entity.Brand;
 import com.bogdanlopatenko.entity.Hotel;
 import com.bogdanlopatenko.entity.HotelAmenity;
+import com.bogdanlopatenko.enums.ResponseStatus;
 import com.bogdanlopatenko.exception.BrandNotFoundException;
 import com.bogdanlopatenko.exception.HotelNotFoundException;
 import com.bogdanlopatenko.mapper.HotelMapper;
@@ -105,12 +106,12 @@ public class HotelServiceImpl implements HotelService {
     private Hotel getHotelById(Long id) {
 
         return hotelRepository.findById(id).orElseThrow(()
-                -> new HotelNotFoundException(ExceptionConstant.HOTEL_NOT_FOUND_BY_ID + id));
+                -> new HotelNotFoundException(ExceptionConstant.HOTEL_NOT_FOUND_BY_ID + id, ResponseStatus.NOT_FOUND.name()));
     }
 
-    private Brand getBrandByName(String brandName){
+    private Brand getBrandByName(String brandName) {
 
         return brandRepository.findByName(brandName).orElseThrow(()
-                -> new BrandNotFoundException(ExceptionConstant.BRAND_NOT_FOUND_BY_NAME + brandName));
+                -> new BrandNotFoundException(ExceptionConstant.BRAND_NOT_FOUND_BY_NAME + brandName, ResponseStatus.NOT_FOUND.name()));
     }
 }

@@ -27,7 +27,7 @@ public class HotelSpecification {
             if (filter.getName() != null && !filter.getName().isBlank()) {
                 predicates.add(
                         cb.like(
-                                cb.lower(root.get("name" )),
+                                cb.lower(root.get("name")),
                                 "%" + filter.getName().toLowerCase() + "%"
                         )
                 );
@@ -37,7 +37,7 @@ public class HotelSpecification {
             if (filter.getCity() != null && !filter.getCity().isBlank()) {
                 predicates.add(
                         cb.equal(
-                                cb.lower(root.get("city" )),
+                                cb.lower(root.get("city")),
                                 filter.getCity().toLowerCase()
                         )
                 );
@@ -46,7 +46,7 @@ public class HotelSpecification {
             if (filter.getCountry() != null && !filter.getCountry().isBlank()) {
                 predicates.add(
                         cb.equal(
-                                cb.lower(root.get("country" )),
+                                cb.lower(root.get("country")),
                                 filter.getCountry().toLowerCase()
                         )
                 );
@@ -57,11 +57,11 @@ public class HotelSpecification {
                     filter.getBrand().getName() != null &&
                     !filter.getBrand().getName().isBlank()) {
 
-                Join<Hotel, ?> brandJoin = root.join("brand" );
+                Join<Hotel, ?> brandJoin = root.join("brand");
 
                 predicates.add(
                         cb.equal(
-                                cb.lower(brandJoin.get("name" )),
+                                cb.lower(brandJoin.get("name")),
                                 filter.getBrand().getName().toLowerCase()
                         )
                 );
@@ -69,11 +69,11 @@ public class HotelSpecification {
 
             if (filter.getAmenities() != null && !filter.getAmenities().isEmpty()) {
 
-                Join<Hotel, HotelAmenity> haJoin = root.join("amenities" );
-                Join<HotelAmenity, Amenity> amenityJoin = haJoin.join("amenity" );
+                Join<Hotel, HotelAmenity> haJoin = root.join("amenities");
+                Join<HotelAmenity, Amenity> amenityJoin = haJoin.join("amenity");
 
                 CriteriaBuilder.In<String> inClause =
-                        cb.in(cb.lower(amenityJoin.get("name" )));
+                        cb.in(cb.lower(amenityJoin.get("name")));
 
                 for (String name : filter.getAmenities()) {
                     inClause.value(name.toLowerCase());
