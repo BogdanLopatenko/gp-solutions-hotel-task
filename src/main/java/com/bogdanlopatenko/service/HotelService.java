@@ -20,5 +20,4 @@ public interface HotelService {
 
     void addAmenities(Long hotelId, List<AmenityRequestDto> amenities);
 
-
 }
