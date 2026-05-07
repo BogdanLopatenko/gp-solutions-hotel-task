@@ -1,5 +1,6 @@
 package com.bogdanlopatenko.controller;
 
+import com.bogdanlopatenko.api.HotelApi;
 import com.bogdanlopatenko.dto.HotelFilterDto;
 import com.bogdanlopatenko.dto.amenity.AmenityRequestDto;
 import com.bogdanlopatenko.dto.hotel.HotelFullResponseDto;
@@ -19,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/property-view/hotels")
 @RequiredArgsConstructor
-public class HotelController {
+public class HotelController implements HotelApi {
 
     private final HotelService hotelService;
 

@@ -20,7 +20,7 @@ public class HistogramServiceImpl implements HistogramService {
     private final HotelAmenityRepository hotelAmenityRepository;
 
     @Override
-    public Map<String, Long> getHistogram(HistogramParam param) {
+    public Map<String, Long> createHistogram(HistogramParam param) {
 
         return switch (param) {
             case CITY -> toMap(hotelRepository.groupByCity());

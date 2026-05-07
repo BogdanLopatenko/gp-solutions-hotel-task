@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface HistogramService {
 
-    Map<String, Long> getHistogram(HistogramParam param);
+    Map<String, Long> createHistogram(HistogramParam param);
 }
