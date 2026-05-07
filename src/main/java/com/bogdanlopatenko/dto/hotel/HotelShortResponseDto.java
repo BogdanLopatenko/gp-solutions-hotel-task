@@ -18,15 +18,7 @@ public class HotelShortResponseDto {
 
     private BrandShortResponseDto brand;
 
-    private String houseNumber;
-
-    private String street;
-
-    private String city;
-
-    private String country;
-
-    private String postCode;
+    private String address;
 
     private String phone;
 }
