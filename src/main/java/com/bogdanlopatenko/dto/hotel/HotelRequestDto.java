@@ -39,7 +39,7 @@ public class HotelRequestDto {
     private String city;
 
     @NotBlank(message = "Country can't be null or blank")
-    @Size(min = 4, max = 200, message = "Country name must be in range 4-200 symbols")
+    @Size(min = 3, max = 200, message = "Country name must be in range 3-200 symbols")
     private String country;
 
     @NotBlank(message = "Post code can't be null or blank")
