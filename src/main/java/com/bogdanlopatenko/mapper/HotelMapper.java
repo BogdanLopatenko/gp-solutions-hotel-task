@@ -9,14 +9,18 @@ import com.bogdanlopatenko.dto.hotel.HotelShortResponseDto;
 import com.bogdanlopatenko.entity.Amenity;
 import com.bogdanlopatenko.entity.Hotel;
 import com.bogdanlopatenko.entity.HotelAmenity;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Mapper
         (
@@ -33,6 +37,7 @@ public interface HotelMapper {
     @Mapping(target = "amenities", ignore = true)
     Hotel toHotel(HotelRequestDto dto);
 
+    @Mapping(target = "address", ignore = true)
     HotelShortResponseDto toShortResponseDto(Hotel hotel);
 
     List<HotelShortResponseDto> toShortResponseList(List<Hotel> hotels);
@@ -49,5 +54,22 @@ public interface HotelMapper {
     }
 
     AmenityShortResponseDto mapAmenity(Amenity amenity);
+
+    @AfterMapping
+    default void fillAddress(Hotel entity,
+                             @MappingTarget HotelShortResponseDto dto) {
+
+        dto.setAddress(
+                Stream.of(
+                                entity.getHouseNumber(),
+                                entity.getStreet(),
+                                entity.getCity(),
+                                entity.getCountry(),
+                                entity.getPostCode()
+                        )
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.joining(", "))
+        );
+    }
 
 }
