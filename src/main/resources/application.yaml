@@ -3,10 +3,10 @@ spring:
     name: GP_solutions_task
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/gpsolutionsdb
-    username: postgres
-    password: admin
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:gp_solutions_db
+    username: username
+    password: password
+    driver-class-name: org.h2.Driver
 
   jpa:
     hibernate:
